@@ -1,0 +1,51 @@
+.bg-img {
+  background-image: url(./img/background-body.jpg);
+}
+
+.load-content {
+  background-image: url(img/background-body.jpg) #111114;
+  height: 60.2vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 77px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+}
+
+.loader__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.loader__film {
+  position: absolute;
+  top: -45px;
+  left: 0;
+  display: flex;
+}
+
+.loader__film-img {
+  animation: rotate 1.5s linear infinite;
+  width: 50px;
+}
+
+.loader__camera {
+  height: 100%;
+}
