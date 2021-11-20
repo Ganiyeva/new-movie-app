@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
+import { MdImageNotSupported } from "react-icons/all";
 import styled from 'styled-components';
 import {IMAGE_URL} from '../global';
 
@@ -23,17 +24,27 @@ const Img = styled.img `
   border-radius: 7px;
 `;
 
-const Btn = styled.button `
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  border: none;
-  border-radius: 50%;
-  background-color: rgba(255, 193, 7, 0.3);
+const NoImg = styled.div `
+  height: 100%;
+  width: 100%;
+  background-color: #FF1151;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
+
+// const Btn = styled.button `
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   width: 60px;
+//   height: 60px;
+//   border: none;
+//   border-radius: 50%;
+//   background-color: rgba(255, 193, 7, 0.3);
+// `;
 
 // const MovieType = styled.span `
 //   diplay: inline-block;
@@ -57,11 +68,14 @@ const Date = styled.span `
 `;
 
 const Title = styled.h4 `
-  min-height: 46px;
+  max-width: 180px;
   font-size: 15px;
   font-weight: 500;
   color: #FFF;
-  margin: 10px 0 0;
+  margin: 10px auto 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const MovieCard = ({movieObj}) =>{
@@ -69,8 +83,8 @@ const MovieCard = ({movieObj}) =>{
     <Link className="view-movie" to={`/movie/${movieObj.id}`}>
       <Movie>
         <Box>
-          <Img src={IMAGE_URL + movieObj.poster_path} alt={movieObj.title} className="img" />
-          <Btn type="button"> <FaPlay className="play" /> </Btn>
+          {movieObj.poster_path ? <Img src={IMAGE_URL + movieObj.poster_path} alt={movieObj.title} className="img" /> : <NoImg> <MdImageNotSupported className="not-img" /> </NoImg>}
+          {/* <Btn type="button"> <FaPlay className="play" /> </Btn> */}
         </Box>
         {/* <MovieType> {movieObj.media_type} </MovieType> */}
         <Date> {movieObj.release_date ? movieObj.release_date : movieObj.first_air_date} </Date>

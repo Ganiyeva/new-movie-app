@@ -28,7 +28,7 @@ code {
   text-decoration: none;
 }
 
-.active-nav{
+.active-nav {
   color: #FF0042;
 }
 
@@ -55,7 +55,7 @@ code {
   transition: background-color 0.3s ease-in-out, color 0.5s ease-in-out;
 }
 
-.genre-link:hover{
+.genre-link:hover {
   background-color: #222125;
   color: #FFF;
 }
@@ -81,13 +81,13 @@ code {
   background-color: rgba(72, 73, 64, 0.8);
 }
 
-.content-401{
+.content-401 {
   display: flex;
   justify-content: center;
   margin: 0 15px;
 }
 
-.logo-401{
+.logo-401 {
   width: 350px;
 }
 
@@ -95,40 +95,58 @@ code {
   stroke: #21D07A;
 }
 
-.filter{
+.filter {
   font-size: 15px;
   color: #FFC107;
 }
 
-.css-319lph-ValueContainer{
+.css-1s2u09g-control {
+  background-color: #222125 !important;
+  border-color: transparent !important;
+  border-radius: 5px !important;
+  border-style: none !important;
+  border-width: 0 !important;
+  min-height: 43px !important;
+  overflow: hidden;
+}
+
+.css-b62m3t-container {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: border 0.3s ease-in-out;
+}
+
+.css-b62m3t-container:hover {
+  border: 1px solid #FFC107;
+}
+
+.css-qc6sy-singleValue {
+  color: #FFFFFF !important;
+}
+
+.css-319lph-ValueContainer {
   background-color: #222125;
   border: 1px solid transparent;
   border-radius: 5px;
   padding: 7px 10px;
-  color: #FFF;
   font-size: 15px;
   transition: border 0.3s ease-in-out;
 }
 
-.all:focus{
-  outline: 1px solid #FFC107;
-}
-
-.all:hover{
-  border: 1px solid #FFC107;
-  border-radius: 5px;
-}
-
-.css-tlfecz-indicatorContainer{
+.css-1hb7zxy-IndicatorsContainer {
   background-color: #222125;
 }
 
-.search-btn:hover{
+.css-1hb7zxy-IndicatorsContainer:focus {
+  background-color: #222125;
+}
+
+.search-btn:hover {
   background-color: #222125;
   color: #FFF;
 }
 
-.all-movies{
+.all-movies {
   width: 90px;
   padding: 10px 0;
   margin-right: 15px;

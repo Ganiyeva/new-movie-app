@@ -13,7 +13,7 @@ import SimilarList from "../components/SimilarList";
 const API_PARAMS = `?api_key=${MY_API_KEY}&language=en-US`;
 
 const PageContent = styled.section `
-  height: 100%;
+  min-height: 100vh;
   margin-top: 97px;
   padding: 50px 0;
 `;

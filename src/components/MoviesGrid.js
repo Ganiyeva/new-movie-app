@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { useState, useEffect } from "react";
-import { BY_GENRES } from "../global";
 import MovieCard from './MovieCard';
 import usePrevious from "../hooks";
-import {MY_API_KEY} from "../global";
+import apiCalls from '../config/api';
 
 const Card = styled.div `
   padding: 20px;
@@ -58,28 +57,32 @@ const MoviesGrid = (props) => {
       list = movies;
     }
     if (props.genre == undefined) {
-      fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${MY_API_KEY}&page=${page}`).then(res => {if(!res.ok) {throw Error(res.status);};
-        return res.json();
-      }).then(data => {
-        setMovies( [...list , ...data.results] );
-        setTotalPage(data.total_pages);
-      })
-      .catch((err) => {
-        setError(err);
-      });
+      const getTop = async () => {
+        try {
+          const data = await apiCalls.getMovies('top_rated', {
+            page: page,
+          });
+          setMovies([...list , ...data.results]);
+          setTotalPage(data.total_pages);
+          } catch (error) {
+          setError(error.message);
+        }
+      }
+      getTop();
     } else {
-      fetch(BY_GENRES + props.genre + '&page=' + page).then(res => {
-        if(!res.ok) {
-          throw Error(res.status);
-        };
-        return res.json();
-      }).then(data =>{
-        setMovies( [...list, ...data.results] );
-        setTotalPage(data.total_pages);
-      })
-      .catch((err) => {
-        setError(err);
-      });
+      const getDiscover = async () => {
+        try {
+          const data = await apiCalls.discover({
+            page: page,
+            with_genres: props.genre
+          });
+          setMovies( [...list, ...data.results] );
+          setTotalPage(data.total_pages);
+        } catch (error) {
+        setError(error.message);
+        }
+      }
+      getDiscover();
     }
     }, [props.genre, page]);
 

@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import Discovers from "../components/Discovers";
 
 const PageContent = styled.section `
-  height: 100vh;
+  min-height: 100vh;
   margin-top: 97px;
-  padding: 100px 0;
+  padding: 70px 0;
 `;
 
 const Search = () => {

@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
-import {Scrollbar} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
-// import 'swiper/css/scrollbar';
 import styled from 'styled-components';
-import { MY_API_KEY } from "../global";
-import { MOVIE_API } from '../global';
+import apiCalls from '../config/api';
 import SimilarCard from "./SimilarCard";
-const API_SIMILAR = `/similar?api_key=${MY_API_KEY}`;
 
 const Slider = styled.div`
   padding: 50px 0;
@@ -19,19 +15,30 @@ const Title = styled.h3 `
 
 const SimilarList = ({id}) =>{
   const [similar, setSimilar] = useState([]);
+  const [error, setError] = useState(undefined);
 
   useEffect(() => {
-    fetch(MOVIE_API + id + API_SIMILAR).then(res => res.json()).then(data =>{
-      setSimilar(data.results);
-    });
+
+    const movieSimilar = async () => {
+      try {
+          const data = await apiCalls.similar(id);
+          setSimilar(data.results);
+      } catch (error) {
+          setError(error.message);
+      }
+    }
+    movieSimilar();
   }, [id]);
 
   return (
     <Slider>
       <Title> Similar </Title>
-      <Swiper modules={Scrollbar} grabCursor={true} spaceBetween={0} slidesPerView={4} scrollbar={{ draggable: true }}>
+      {error && <div className="content-401">
+        {error ? <img src="img/error_401.webp" alt="error 401" className="logo-401" /> : ''}
+      </div>}
+      {!error && <Swiper grabCursor={true} spaceBetween={0} slidesPerView={4}>
         { similar.map((el, index ) => (<SwiperSlide key={index} > <SimilarCard similarObj={el} /> </SwiperSlide>))}
-      </Swiper>
+      </Swiper>}
     </Slider>
  );
 };

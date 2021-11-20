@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
-
 import ScrollToTop from "./components/scrollToTop";
 import Header from './components/Header';
 import Home from './pages/Home';

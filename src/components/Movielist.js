@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import SwiperCore, {Autoplay} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import { Link } from "react-router-dom";
+import apiCalls from '../config/api';
 import MovieCard from './MovieCard';
 // import Loader from './Loader';
-import { MY_API_KEY } from "../global";
 
 const Slider = styled.div`
   margin-top: 30px;
@@ -37,19 +37,15 @@ const Movielist = ({type, title}) => {
 
 
   useEffect(()=>{
-    fetch(`https://api.themoviedb.org/3/movie/${type}?api_key=${MY_API_KEY}`).then(res => {
-      if(!res.ok) {
-        throw Error(res.status);
-      };
-      return res.json();
-    }).then(data =>{
-      setMoviesList(data.results);
-      // setIsLoading(false);
-    })
-    .catch((err) => {
-      setError(err);
-      // setIsLoading(false);
-    });
+    const getMovies = async () => {
+      try {
+          const data = await apiCalls.getMovies(type);
+          setMoviesList(data.results);
+      } catch (error) {
+          setError(error.message);
+      }
+    }
+    getMovies();
   }, []);
 
   return (
@@ -58,12 +54,12 @@ const Movielist = ({type, title}) => {
         <Title> {title} </Title>
         <Link to="/catalog" className="all-movies"> All </Link>
       </Row>
-      <div className="content-401">
+      {error && <div className="content-401">
         {error ? <img src="img/error_401.webp" alt="error 401" className="logo-401" /> : ''}
-      </div>
-      <Swiper modules={[Autoplay]} grabCursor={true} spaceBetween={0} slidesPerView={4} loop autoplay={{delay: 7000, disableOnInteraction: false}}>
+      </div>}
+      {!error && <Swiper modules={[Autoplay]} grabCursor={true} spaceBetween={0} slidesPerView={4} loop autoplay={{delay: 7000, disableOnInteraction: false}}>
         {moviesList.map(el => (<SwiperSlide key={el.id} > <MovieCard movieObj={el}/> </SwiperSlide>))};
-      </Swiper>
+      </Swiper>}
     </Slider>
   )
 }

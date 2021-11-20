@@ -36,17 +36,24 @@ const Box = styled.div `
 `;
 
 const Name = styled.h4 `
+  max-width: 130px;
   font-size: 15px;
   font-weight: 700;
   color: #000;
   margin: 7px 0 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const Character = styled.p `
-  min-height: 44px;
+  max-width: 100px;
   font-size: 14px;
   color: #000;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const ActorCard = ({actorObj}) =>{

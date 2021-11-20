@@ -5,12 +5,9 @@ import styled from 'styled-components';
 import { Progress } from 'antd';
 import 'antd/dist/antd.css';
 import { Link } from "react-router-dom";
-import { MOVIE_API } from '../global';
-import { MY_API_KEY } from "../global";
+import apiCalls from '../config/api';
 import {IMAGE_URL} from "../global";
 import {ORIGINAL_IMAGE_URL} from "../global";
-
-const API_PARAMS = `popular?api_key=${MY_API_KEY}`;
 
 const Backdrop = styled.div `
   position: relative;
@@ -73,29 +70,26 @@ const Slider = () => {
 
   const [popular, setPopular] = useState([]);
   const [error, setError] = useState(undefined);
-
   SwiperCore.use([Autoplay]);
 
     useEffect(() => {
-      fetch(MOVIE_API + API_PARAMS).then(res => {
-        if(!res.ok) {
-          throw Error(res.status);
-        };
-        return res.json();
-      }).then(data =>{
-        setPopular(data.results.slice(0, 4));
-      })
-      .catch((err) => {
-        setError(err);
-      });
+      const movieSlider = async () => {
+        try {
+            const data = await apiCalls.getMovies('popular');
+            setPopular(data.results);
+        } catch (error) {
+            setError(error.message);
+        }
+      }
+      movieSlider();
     }, []);
 
   return(
     <div>
-      <div className="content-401">
-        {error ? <img src="img/logo-401.png" alt="error 401" className="logo-401" /> : ''}
-      </div>
-      <Swiper modules={[Autoplay]} grabCursor={true} spaceBetween={0} slidesPerView={1} loop autoplay={{delay: 5000, disableOnInteraction: false}}>
+      {error && <div className="content-401">
+        {error ? <img src="img/error_401.webp" alt="error 401" className="logo-401" /> : ''}
+      </div>}
+      {!error && <Swiper modules={[Autoplay]} grabCursor={true} spaceBetween={0} slidesPerView={1} loop autoplay={{delay: 5000, disableOnInteraction: false}}>
       {popular.map(el => (<SwiperSlide>
         <div key={el.id}>
         <Backdrop className="backdrop" style={{ backgroundImage: `url(${ORIGINAL_IMAGE_URL + el.backdrop_path})`}}>
@@ -114,7 +108,7 @@ const Slider = () => {
         </Backdrop>
         </div>
           </SwiperSlide>))};
-      </Swiper>
+      </Swiper>}
     </div>
   );
 };
