@@ -3,6 +3,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import styled from 'styled-components';
 import apiCalls from '../config/api';
 import SimilarCard from "./SimilarCard";
+import Loader from './Loader';
 
 const Slider = styled.div`
   padding: 50px 0;
@@ -16,6 +17,7 @@ const Title = styled.h3 `
 const SimilarList = ({id}) =>{
   const [similar, setSimilar] = useState([]);
   const [error, setError] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
 
@@ -23,14 +25,19 @@ const SimilarList = ({id}) =>{
       try {
           const data = await apiCalls.similar(id);
           setSimilar(data.results);
+          setIsLoading(false);
       } catch (error) {
           setError(error.message);
+          setIsLoading(false);
       }
     }
+    setIsLoading(true);
     movieSimilar();
   }, [id]);
 
-  return (
+  if(isLoading)
+    return (<Loader/>); 
+  else return (
     <Slider>
       <Title> Similar </Title>
       {error && <div className="content-401">

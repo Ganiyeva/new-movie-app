@@ -1,7 +1,4 @@
-import { useState, useEffect } from "react";
-
 const Loader =() => {
-  const [isLoading, setIsLoading] = useState(true);
    return (
     <div className="load-content">
       <div className="loader">

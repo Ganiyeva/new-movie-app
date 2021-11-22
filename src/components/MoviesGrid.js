@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import MovieCard from './MovieCard';
 import usePrevious from "../hooks";
 import apiCalls from '../config/api';
+import Loader from './Loader';
 
 const Card = styled.div `
   padding: 20px;
@@ -38,6 +39,7 @@ const MoviesGrid = (props) => {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   const prevGenre = usePrevious(props.genre);
   const prevPage = usePrevious(page);
@@ -49,14 +51,14 @@ const MoviesGrid = (props) => {
   useEffect(() => {
     let list;
 
-    if (prevGenre != props.genre) {
+    if (prevGenre !== props.genre) {
       list = [];
     } else if(prevPage === page) {
       list = [];
     } else {
       list = movies;
     }
-    if (props.genre == undefined) {
+    if (props.genre === undefined) {
       const getTop = async () => {
         try {
           const data = await apiCalls.getMovies('top_rated', {
@@ -64,10 +66,13 @@ const MoviesGrid = (props) => {
           });
           setMovies([...list , ...data.results]);
           setTotalPage(data.total_pages);
+          setIsLoading(false);
           } catch (error) {
           setError(error.message);
+          setIsLoading(false);
         }
       }
+      setIsLoading(true);
       getTop();
     } else {
       const getDiscover = async () => {
@@ -78,15 +83,21 @@ const MoviesGrid = (props) => {
           });
           setMovies( [...list, ...data.results] );
           setTotalPage(data.total_pages);
+          setIsLoading(false);
         } catch (error) {
         setError(error.message);
+        setIsLoading(false);
         }
       }
+      setIsLoading(true);
       getDiscover();
     }
-    }, [props.genre, page]);
+    }, [props.genre, page, movies, prevGenre, prevPage]);
 
-  return (
+
+  if(isLoading)
+    return (<Loader/>); 
+  else return (
     <Card>
       <Title> Movies count: {movies.length} </Title>
       <div className="content-401">

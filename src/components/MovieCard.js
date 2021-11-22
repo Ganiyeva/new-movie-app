@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { FaPlay } from "react-icons/fa";
 import { MdImageNotSupported } from "react-icons/all";
 import styled from 'styled-components';
 import {IMAGE_URL} from '../global';
@@ -34,32 +33,6 @@ const NoImg = styled.div `
   justify-content: space-between;
 `;
 
-// const Btn = styled.button `
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   width: 60px;
-//   height: 60px;
-//   border: none;
-//   border-radius: 50%;
-//   background-color: rgba(255, 193, 7, 0.3);
-// `;
-
-// const MovieType = styled.span `
-//   diplay: inline-block;
-//   position: absolute;
-//   top: 22px;
-//   left: 22px;
-//   padding: 5px;
-//   background-color: #FFC107;
-//   border-radius: 5px;
-//   z-index: 2;
-//   font-size: 13px;
-//   font-weight: 700;
-//   color: #212529;
-// `;
-
 const Date = styled.span `
   display: inline-block;
   font-size: 14px;
@@ -84,9 +57,7 @@ const MovieCard = ({movieObj}) =>{
       <Movie>
         <Box>
           {movieObj.poster_path ? <Img src={IMAGE_URL + movieObj.poster_path} alt={movieObj.title} className="img" /> : <NoImg> <MdImageNotSupported className="not-img" /> </NoImg>}
-          {/* <Btn type="button"> <FaPlay className="play" /> </Btn> */}
         </Box>
-        {/* <MovieType> {movieObj.media_type} </MovieType> */}
         <Date> {movieObj.release_date ? movieObj.release_date : movieObj.first_air_date} </Date>
         <Title className="title"> {movieObj.title ? movieObj.title : movieObj.name} </Title>
       </Movie>

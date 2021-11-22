@@ -31,7 +31,7 @@ function Header() {
     <Head>
       <div className="container">
         <Navbar>
-          <Link to="/"> <Logo src="img/love_movies.png" alt="logo" /> </Link>
+          <Link to="/"> <Logo src="/img/love_movies.png" alt="logo" /> </Link>
           <Nav>
             <NavLink className="nav-link" activeClassName="active-nav" exact to="/"> Home </NavLink>
             <NavLink className="nav-link" activeClassName="active-nav" to="/catalog"> Catalog </NavLink>

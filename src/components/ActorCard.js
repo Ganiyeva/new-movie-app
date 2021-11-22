@@ -1,4 +1,3 @@
-// import { prop } from 'dom7';
 import styled from 'styled-components';
 import { MdImageNotSupported } from "react-icons/all";
 import {IMAGE_URL} from '../global';

@@ -4,8 +4,8 @@ const apiCalls = {
     getMovies: (type, params) => {
         return axiosClient.get(`movie/${type}`, {params});
     },
-    getVideos: (id) => {
-        return axiosClient.get(`movie/${id}/videos`);
+    getView: (id) => {
+        return axiosClient.get(`movie/${id}`);
     },
     search: (params) => {
         return axiosClient.get(`search/movie`, {params});

@@ -3,14 +3,12 @@ import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Progress } from 'antd';
 import 'antd/dist/antd.css';
-import { MY_API_KEY } from "../global";
 import {ORIGINAL_IMAGE_URL} from '../global';
 import {IMAGE_URL} from '../global';
-import {MOVIE_API} from '../global';
+import apiCalls from '../config/api';
 import ActorList from "../components/ActorList";
 import SimilarList from "../components/SimilarList";
-
-const API_PARAMS = `?api_key=${MY_API_KEY}&language=en-US`;
+import Loader from '../components/Loader';
 
 const PageContent = styled.section `
   min-height: 100vh;
@@ -115,16 +113,30 @@ const ViewMovie = () => {
 
   const [movieInfo, setMovieInfo] = useState({})
   const {id} = useParams();
+  const [error, setError] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-      fetch(MOVIE_API + id + API_PARAMS).then(res => res.json()).then(data =>{
+  useEffect(() => {
+    const viewMovie = async () => {
+      try {
+        const data = await apiCalls.getView(id);
         setMovieInfo(data);
-      });
-    }, [id]);
+        setIsLoading(false);
+      } catch (error) {
+          setError(error.message);
+          setIsLoading(false);
+      }
+    }
+    setIsLoading(true);
+    viewMovie();
+  }, [id]);
 
-  return (
+  if(isLoading)
+    return (<Loader/>); 
+  else return (
     <PageContent>
-      <Backdrop className="backdrop" style={{ backgroundImage: `url(${ORIGINAL_IMAGE_URL + movieInfo.backdrop_path})`}}>
+      {error && <div className="content-401"><img src="img/error_401.webp" alt="error 401" className="logo-401" /></div>}
+      {!error && <Backdrop className="backdrop" style={{ backgroundImage: `url(${ORIGINAL_IMAGE_URL + movieInfo.backdrop_path})`}}>
         <div className="container">
           <Row>
             <Img src={IMAGE_URL + movieInfo.poster_path} alt="" />
@@ -147,7 +159,7 @@ const ViewMovie = () => {
             </Col>
           </Row>
         </div>
-      </Backdrop>
+      </Backdrop>}
       <div className="container">
         <ActorList id={id}/>
         <SimilarList id={id}/>

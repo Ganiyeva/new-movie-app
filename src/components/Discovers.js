@@ -4,8 +4,7 @@ import Select from 'react-select';
 import styled from 'styled-components';
 import apiCalls from '../config/api';
 import MovieCard from "./MovieCard";
-
-// const GENRE_API = `https://api.themoviedb.org/3/genre/movie/list?api_key=${MY_API_KEY}&language=en-US`;
+import Loader from "./Loader";
 
 const Card = styled.div `
   width: 100%;
@@ -77,6 +76,7 @@ const Discovers = () => {
   const [discover, setDiscover] = useState([]);
   const [total, setTotal] = useState([]);
   const [error, setError] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getGanres = async () => {
@@ -90,7 +90,7 @@ const Discovers = () => {
     getGanres();
   }, []);
 
-  // Select Options
+
   const yearOptions = [
     { value: '2000', label: '2000' },
     { value: '2001', label: '2001' },
@@ -156,9 +156,12 @@ const Discovers = () => {
       });
       setDiscover(data.results);
       setTotal(data.total_results);
+      setIsLoading(false);
       } catch (error) {
       setError(error.message);
+      setIsLoading(false);
       }
+      setIsLoading(true);
   };
 
   return (
@@ -186,9 +189,9 @@ const Discovers = () => {
         {error && <div className="content-401">
         {error ? <img src="img/error_401.webp" alt="error 401" className="logo-401" /> : ''}
       </div>}
-        {!error && <Row>
+        {!error || !isLoading ? <Row>
           {discover.map(el => ( <div key={el.id}> <MovieCard movieObj={el}/> </div>))}
-        </Row>}
+        </Row> : <Loader/>}
       </Card>
     </div>
   );

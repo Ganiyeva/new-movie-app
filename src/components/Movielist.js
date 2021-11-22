@@ -6,7 +6,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import { Link } from "react-router-dom";
 import apiCalls from '../config/api';
 import MovieCard from './MovieCard';
-// import Loader from './Loader';
+import Loader from './Loader';
 
 const Slider = styled.div`
   margin-top: 30px;
@@ -31,8 +31,8 @@ const Title = styled.span`
 const Movielist = ({type, title}) => {
 
   const [moviesList, setMoviesList] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
   SwiperCore.use([Autoplay]);
 
 
@@ -41,14 +41,19 @@ const Movielist = ({type, title}) => {
       try {
           const data = await apiCalls.getMovies(type);
           setMoviesList(data.results);
+          setIsLoading(false);
       } catch (error) {
           setError(error.message);
+          setIsLoading(false);
       }
     }
+    setIsLoading(true);
     getMovies();
-  }, []);
+  }, [type]);
 
-  return (
+  if(isLoading)
+    return (<Loader/>); 
+  else return (
     <Slider>
       <Row>
         <Title> {title} </Title>
