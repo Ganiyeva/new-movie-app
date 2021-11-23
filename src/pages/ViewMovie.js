@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { Progress } from 'antd';
 import 'antd/dist/antd.css';
+import { TiArrowLeftThick } from 'react-icons/ti';
 import {ORIGINAL_IMAGE_URL} from '../global';
 import {IMAGE_URL} from '../global';
 import apiCalls from '../config/api';
@@ -109,6 +110,18 @@ const OverviewText = styled.p `
   line-height: 20px;
 `;
 
+const Btn = styled.button `
+  padding: 10px 15px;
+  background-color: #FFC107;
+  border: none;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 15px 0 0 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
 const ViewMovie = () => {
 
   const [movieInfo, setMovieInfo] = useState({})
@@ -130,6 +143,13 @@ const ViewMovie = () => {
     setIsLoading(true);
     viewMovie();
   }, [id]);
+
+  
+  let history = useHistory();
+  
+  const hendleBack = () => {
+    history.goBack();
+  }
 
   if(isLoading)
     return (<Loader/>); 
@@ -163,6 +183,7 @@ const ViewMovie = () => {
       <div className="container">
         <ActorList id={id}/>
         <SimilarList id={id}/>
+        <Btn type="button" onClick={hendleBack}> <TiArrowLeftThick className="arrow" /> Back </Btn>
       </div>
     </PageContent>
   );

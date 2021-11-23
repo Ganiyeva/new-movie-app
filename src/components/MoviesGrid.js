@@ -8,12 +8,20 @@ import Loader from './Loader';
 const Card = styled.div `
   padding: 20px;
   margin-left: 20px;
+
+  @media (max-width: 1199px){
+    margin-left: 10;
+  }
 `;
 
 const Row = styled.div `
   width: 885px;
   display: flex;
   flex-wrap: wrap;
+
+  @media (max-width: 1199px){
+    width: 600px;
+  }
 `;
 
 const Title = styled.h3 `
@@ -29,7 +37,7 @@ const Btn = styled.button `
   border: none;
   font-size: 17px;
   font-weight: 600;
-  margin: 15px 0 0 13px;
+  margin: 20px 0 0 13px;
   cursor: pointer;
 `;
 
@@ -92,7 +100,7 @@ const MoviesGrid = (props) => {
       setIsLoading(true);
       getDiscover();
     }
-    }, [props.genre, page, movies, prevGenre, prevPage]);
+    }, [props.genre, page]);
 
 
   if(isLoading)

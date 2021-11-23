@@ -32,11 +32,6 @@ code {
   color: #FF0042;
 }
 
-.play {
-  font-size: 30px;
-  color: #FFC107;
-}
-
 .view-movie {
   display: inline-block;
   color: #31C469;
@@ -141,6 +136,12 @@ code {
   background-color: #222125;
 }
 
+#react-select-3-listbox, #react-select-5-listbox, #react-select-7-listbox{
+  background-color: #222125;
+  color: #FFF;
+  z-index: 5;
+}
+
 .search-btn:hover {
   background-color: #222125;
   color: #FFF;
@@ -155,4 +156,20 @@ code {
   text-align: center;
   font-size: 17px;
   color: #FFF;
+}
+
+.arrow{
+  margin-right: 5px;
+}
+
+/* RESPONSIVE */
+@media(max-width: 1199px) {
+  .container{
+    max-width: 850px;
+  }
+
+  .genre-link {
+    display: block;
+    padding: 7px 10px;
+  }
 }

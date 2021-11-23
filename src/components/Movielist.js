@@ -62,7 +62,31 @@ const Movielist = ({type, title}) => {
       {error && <div className="content-401">
         {error ? <img src="img/error_401.webp" alt="error 401" className="logo-401" /> : ''}
       </div>}
-      {!error && <Swiper modules={[Autoplay]} grabCursor={true} spaceBetween={0} slidesPerView={4} loop autoplay={{delay: 7000, disableOnInteraction: false}}>
+      {!error && <Swiper modules={[Autoplay]} grabCursor={true} spaceBetween={0} slidesPerView={4} loop autoplay={{delay: 7000, disableOnInteraction: false}}
+      breakpoints={{
+        '1360': {
+          'slidesPerView': 4
+        },
+        "1199": {
+          "slidesPerView": 3
+        },
+        "991": {
+          "slidesPerView": 3
+        },
+        "767": {
+          "slidesPerView": 2
+        },
+        "565": {
+          "slidesPerView": 2
+        },
+        "480": {
+          "slidesPerView": 1
+        },
+        // "375": {
+        //   "slidesPerView": 3
+        // }
+      }}
+      >
         {moviesList.map(el => (<SwiperSlide key={el.id} > <MovieCard movieObj={el}/> </SwiperSlide>))};
       </Swiper>}
     </Slider>

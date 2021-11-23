@@ -76,7 +76,7 @@ const Slider = () => {
       const movieSlider = async () => {
         try {
             const data = await apiCalls.getMovies('popular');
-            setPopular(data.results);
+            setPopular(data.results.slice(0, 4));
         } catch (error) {
             setError(error.message);
         }

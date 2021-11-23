@@ -21,7 +21,7 @@ const GenreList = () => {
     }, []);
 
   return (
-    <Aside className="aside">
+    <Aside>
       { genres.map((el, index) => (<NavLink to={`/catalog/${el.id}`} key={index} activeClassName="active-genre" className="genre-link"> {el.name} </NavLink>))}
     </Aside>
   );
