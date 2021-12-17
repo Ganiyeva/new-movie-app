@@ -41,7 +41,30 @@ const ActorList = ({id}) =>{
     <Slider>
       <Title> Actors </Title>
       {error && <div className="content-401"><img src="img/error_401.webp" alt="error 401" className="logo-401" /></div>}
-      {!error && <Swiper grabCursor={true} spaceBetween={0} slidesPerView={6}>
+      {!error && <Swiper grabCursor={true} spaceBetween={0} slidesPerView={6}
+      breakpoints={{
+        '1360': {
+          'slidesPerView': 6
+        },
+        "1199": {
+          "slidesPerView": 5
+        },
+        "991": {
+          "slidesPerView": 4
+        },
+        "767": {
+          "slidesPerView": 3
+        },
+        "565": {
+          "slidesPerView": 2
+        },
+        "480": {
+          "slidesPerView": 1
+        },
+        // "375": {
+        //   "slidesPerView": 3
+        // }
+      }}>
         { actors.map((el, index ) => (<SwiperSlide key={index} > <ActorCard actorObj={el} /> </SwiperSlide>))}
       </Swiper>}
     </Slider>

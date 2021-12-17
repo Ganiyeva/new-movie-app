@@ -100,6 +100,7 @@ const MoviesGrid = (props) => {
       setIsLoading(true);
       getDiscover();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.genre, page]);
 
 

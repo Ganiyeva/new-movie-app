@@ -74,7 +74,7 @@ const Movielist = ({type, title}) => {
           "slidesPerView": 3
         },
         "767": {
-          "slidesPerView": 2
+          "slidesPerView": 3
         },
         "565": {
           "slidesPerView": 2
@@ -85,8 +85,7 @@ const Movielist = ({type, title}) => {
         // "375": {
         //   "slidesPerView": 3
         // }
-      }}
-      >
+      }}>
         {moviesList.map(el => (<SwiperSlide key={el.id} > <MovieCard movieObj={el}/> </SwiperSlide>))};
       </Swiper>}
     </Slider>

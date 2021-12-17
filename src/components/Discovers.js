@@ -15,13 +15,22 @@ const Card = styled.div `
 
 const Forma = styled.form `
   display: flex;
-  align-items: end;
   justify-content: space-between;
   padding: 0 15px;
+
+  @media (max-width: 1199px){
+    display: block;
+    padding: 0;
+  }
 `;
 
 const Box = styled.div `
   width: 250px;
+
+  @media (max-width: 1199px){
+    width: 70%;
+    margin: 10px auto;
+  }
 `;
 
 const Label = styled.span `
@@ -33,7 +42,20 @@ const Title = styled.span `
   font-weight: 700;
   color: #FFF;
   margin-left: 15px;
+
+  @media (max-width: 1199px){
+    margin-left: 130px;
+  }
 `;
+
+const Btns = styled.div `
+@media (max-width: 1199px){
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+`
 
 const Btn = styled.button `
   width: 145px;
@@ -181,10 +203,10 @@ const Discovers = () => {
             <Label>Sort by</Label>
             <Select options={sortOptions}  onChange={handleSortChange} />
           </Box>
-          <div>
+          <Btns>
             <Btn className="search-btn" type="button" onClick={handleDiscoverBtn}> Discover </Btn>
             <Found> Found <span> {total} </span> </Found>
-          </div>
+          </Btns>
         </Forma>
         {error && <div className="content-401">
         {error ? <img src="img/error_401.webp" alt="error 401" className="logo-401" /> : ''}

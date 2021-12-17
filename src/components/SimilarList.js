@@ -43,7 +43,30 @@ const SimilarList = ({id}) =>{
       {error && <div className="content-401">
         {error ? <img src="img/error_401.webp" alt="error 401" className="logo-401" /> : ''}
       </div>}
-      {!error && <Swiper grabCursor={true} spaceBetween={0} slidesPerView={4}>
+      {!error && <Swiper grabCursor={true} spaceBetween={0} slidesPerView={4}
+      breakpoints={{
+        '1360': {
+          'slidesPerView': 4
+        },
+        "1199": {
+          "slidesPerView": 3
+        },
+        "991": {
+          "slidesPerView": 3
+        },
+        "767": {
+          "slidesPerView": 3
+        },
+        "565": {
+          "slidesPerView": 2
+        },
+        "480": {
+          "slidesPerView": 1
+        },
+        // "375": {
+        //   "slidesPerView": 3
+        // }
+      }}>
         { similar.map((el, index ) => (<SwiperSlide key={index} > <SimilarCard similarObj={el} /> </SwiperSlide>))}
       </Swiper>}
     </Slider>
